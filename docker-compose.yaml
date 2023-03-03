@@ -86,7 +86,6 @@ services:
       - kafka-1
       - kafka-2
       - kafka-3
-      - zookeeper-1
     entrypoint: [ '/bin/sh','-c' ]
     command: |
       "
@@ -106,3 +105,5 @@ services:
       kafka-topics --bootstrap-server kafka-2:29092 --list
       kafka-topics --bootstrap-server kafka-3:39092 --list
       "
+  
+      
