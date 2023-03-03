@@ -2,6 +2,10 @@
 
 This is our SFR Repository.
 
+## How to run
+
+In order to run the kafka cluster, simply use the `docker compose up` (-d is optional) command. To shut down the cluster, simply run `docker compose down`. To run the producer C# script / project, you simply have to start it (maybe adjust ports inside the code if needed). You may also need to add `kafka-1, kafka-2, kafka-3` to your hosts file (127.0.0.1 for the IP address).
+
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
 Brokers: Kafka can be "distributed" across multiple nodes, also called brokers, to allow for easier scaling and to increase reliability of Kafka itself. Multiple brokers working together are often called a Kafka cluster.
