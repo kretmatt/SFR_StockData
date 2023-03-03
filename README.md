@@ -4,7 +4,7 @@ This is our SFR Repository.
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
-Brokers: Kafka can be "distributed" across multiple nodes, also called brokers, to allow for easier scaling and to increase reliability of Kafka itself.
+Brokers: Kafka can be "distributed" across multiple nodes, also called brokers, to allow for easier scaling and to increase reliability of Kafka itself. Multiple brokers working together are often called a Kafka cluster.
 
 Partitioning: A Kafka topic itself is a collection of messages with a unique name. Those topics can be split into smaller subsets, called partitions, to allow for multiple producers & consumers (due to concurrent access to the subsets on different brokers). 
 
