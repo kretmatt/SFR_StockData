@@ -4,7 +4,17 @@ This is our SFR Repository.
 
 ## How to run
 
-In order to run the kafka cluster, simply use the `docker compose up` (-d is optional) command. To shut down the cluster, simply run `docker compose down`. To run the producer C# script / project, you simply have to start it (maybe adjust ports inside the code if needed). You may also need to add `kafka-1, kafka-2, kafka-3` to your hosts file (127.0.0.1 for the IP address).
+**Prerequisites:** Docker Desktop / Docker CLI, Docker Compose
+
+In order to run the SFR_StockData application, you first need to build the image for the kafka producer by executing the command `docker build -t stockproducer .`. After a successful build, you are able to start the application by using the `docker compose up -d` command (shutdown is possible with `docker compose down`). Here are some additional commands to check out the automatically created topic and the messages that are published by the producer (for service kafka-1, the same is possible for the other kafka services by inserting the respective names+ports):
+
+```Shell
+# Command for checking the topic with 3 partitions, 3 replicas, and min.insync.replicas=2
+docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-topics --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --describe --topic stocks
+
+# Command for checking out the messages sent to the topic
+docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-console-consumer --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --topic stocks --from-beginning
+```
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 

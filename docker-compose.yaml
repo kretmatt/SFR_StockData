@@ -80,6 +80,13 @@ services:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:12181,zookeeper-2:12181,zookeeper-3:12181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:39092
+  producer:
+    image: stockproducer:latest
+    environment:
+      bootstrapservers: kafka-2:29092
+      topic: stocks
+    depends_on:
+      - init-kafka
   init-kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
