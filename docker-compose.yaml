@@ -87,6 +87,21 @@ services:
       topic: stocks
     depends_on:
       - init-kafka
+  schemaregistry:
+    image: confluentinc/cp-schema-registry:latest
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+      - zookeeper-1
+      - zookeeper-2
+      - zookeeper-3
+    ports:
+      - 8085:8081
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schemaregistry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-1:19092, PLAINTEXT://kafka-2:29092, PLAINTEXT://kafka-3:39092
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper-1:12181,zookeeper-2:12181,zookeeper-3:12181
   init-kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
@@ -112,5 +127,6 @@ services:
       kafka-topics --bootstrap-server kafka-2:29092 --list
       kafka-topics --bootstrap-server kafka-3:39092 --list
       "
-  
+
+      
       
