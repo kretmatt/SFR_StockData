@@ -19,7 +19,7 @@ docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafk
 Our used topics are:
 * **stocks:** Our producer is sending a stock object that contains a string companyname, int price and a DateTime timestamp. The key for the message is the name of the company
 * **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
-* **bonds-change:** Only the overall change rate is sent to this topic
+* **bond-changes:** Only the overall change rate is sent to this topic
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
