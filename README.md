@@ -10,16 +10,16 @@ In order to run the SFR_StockData application, you first need to build the image
 
 ```Shell
 # Command for checking the topic with 3 partitions, 3 replicas, and min.insync.replicas=2
-docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-topics --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --describe --topic stocks
+docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-topics --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --describe --topic <INSERT TOPIC>
 
 # Command for checking out the messages sent to the topic
-docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-console-consumer --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --topic stocks --from-beginning
+docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafka-console-consumer --bootstrap-server <INSERT CONTAINER NAME FOR kafka-1 SERVICE>:19092 --topic <INSERT TOPIC> --from-beginning
 ```
 
 Our used topics are:
-* stocks: Our producer is sending a stock object that contains a string companyname, int price and a DateTime timestamp. The key for the message is the name of the company
-* stocks-table: This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the *Table Stream Duality*.
-* bonds-change: Only the overall change rate is sent to this topic
+* **stocks:** Our producer is sending a stock object that contains a string companyname, int price and a DateTime timestamp. The key for the message is the name of the company
+* **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
+* **bonds-change:** Only the overall change rate is sent to this topic
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
