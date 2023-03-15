@@ -19,7 +19,7 @@ docker exec --interactive --tty <INSERT CONTAINER NAME FOR kafka-1 SERVICE> kafk
 Our used topics are:
 * **stocks:** Our producer is sending a stock object that contains a string companyname, int price and a DateTime timestamp. The key for the message is the name of the company
 * **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
-* **bonds-change:** Only the overall change rate is sent to this topic
+* **bond-changes:** Only the overall change rate is sent to this topic
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
@@ -38,13 +38,16 @@ There can be an arbitrary amount of partitions for a topic. The maximum (reasona
 To create our schema, we used Avro. In a first step, we had to download the avrogen tool by executing this command `dotnet tool install -g Confluent.Apache.Avro.AvroGen`. With this we can execute the `avrogen -s filename.avsc .` command to auto-generate a C# class from an .avsc file.  
 
 There are three different compatibility modes which are the following:
-* Backward: All fields can be deleted but only optional ones can be added 
+* Backward: 
+  * All fields can be deleted but only optional ones can be added 
   * Consumer has to be updated first
   * Requests
-* Forward: Any field can be added but only optional ones can be deleted 
+* Forward: 
+  * Any field can be added but only optional ones can be deleted 
   * Producer has to be updated first
   * Answers
-* Full: Only optional fields can be added or deleted
+* Full: 
+  * Only optional fields can be added or deleted
 
 All of them refer only to compatibility with the version before (so for v5 it would be v4). By adding the keyword transitive at the end, it states that they are compatible with all previous versions.
 The default setting for the Avro Schema is the backwards compatibility. We changed this in our docker compose to backward_transitive.
