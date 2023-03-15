@@ -114,6 +114,7 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schemaregistry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-1:19092, PLAINTEXT://kafka-2:29092, PLAINTEXT://kafka-3:39092
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper-1:12181,zookeeper-2:12181,zookeeper-3:12181
+      SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL: 'backward_transitive'
   init-kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:

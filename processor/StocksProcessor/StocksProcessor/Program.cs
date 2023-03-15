@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Threading;
+using Avro.Util;
 using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
 using Demo;
@@ -20,8 +21,8 @@ public class StocksProcessor
 {
     async static Task Main(string[] args)
     {
-	    // Currently there is a bug where the producer / aggregator does not function correctly within docker without a sleep period in the beginning.
-	    Thread.Sleep(30000);
+	    CancellationTokenSource source = new();
+	    Thread.Sleep(40000);
 	    // Get the configuration from the docker-compose.yaml through the environment
 	    var bootstrapServers = Environment.GetEnvironmentVariable("bootstrapservers");
 	    var topic = Environment.GetEnvironmentVariable("rawdatatopic");
@@ -57,50 +58,46 @@ public class StocksProcessor
 				    {
 					    var oldestEntry = aggregator.BondEntries.MaxBy(x => x.timestamp);
 					    var latestEntry = aggregator.BondEntries.MinBy(x => x.timestamp);
+					    
+					    aggregator.overallchange = ((oldestEntry.price-latestEntry.price) / (double)oldestEntry.price)*100;
 
-					    if (oldestEntry == null || latestEntry == null)
-						    aggregator.overallchange = 0;
-					    else
-							aggregator.overallchange = ((latestEntry.price-oldestEntry.price) / oldestEntry.price)*100;
-						Console.WriteLine(oldestEntry.price);
-						Console.WriteLine(latestEntry.price);
 					    var currentTimestamp = DateTime.Now;
 
 					    var oldestEntryLastHour = aggregator.BondEntries
-						    .Where(x => currentTimestamp > x.timestamp.AddMinutes(60)).MaxBy(x => x.timestamp);
+						    .Where(x => currentTimestamp < x.timestamp.AddMinutes(60)).MaxBy(x => x.timestamp);
 					    var latestEntryLastHour = aggregator.BondEntries
-						    .Where(x => currentTimestamp > x.timestamp.AddMinutes(60)).MinBy(x => x.timestamp);
+						    .Where(x => currentTimestamp < x.timestamp.AddMinutes(60)).MinBy(x => x.timestamp);
 
 					    if (oldestEntryLastHour == null || latestEntryLastHour == null)
 						    aggregator.lasthourchange = 0;
 					    else
-						    aggregator.lasthourchange = ((latestEntryLastHour.price - oldestEntryLastHour.price) / oldestEntryLastHour.price)*100;
+						    aggregator.lasthourchange = (((double)oldestEntryLastHour.price-(double)latestEntryLastHour.price) / (double)oldestEntryLastHour.price)*100;
 
 					    var oldestEntryLastMinute = aggregator.BondEntries
-						    .Where(x => currentTimestamp > x.timestamp.AddMinutes(1)).MaxBy(x => x.timestamp);
+						    .Where(x => currentTimestamp < x.timestamp.AddMinutes(1)).MaxBy(x => x.timestamp);
 					    var latestEntryLastMinute = aggregator.BondEntries
-						    .Where(x => currentTimestamp > x.timestamp.AddMinutes(1)).MinBy(x => x.timestamp);
+						    .Where(x => currentTimestamp < x.timestamp.AddMinutes(1)).MinBy(x => x.timestamp);
 
 					    if (oldestEntryLastMinute == null || latestEntryLastMinute == null)
 						    aggregator.lastminutechange = 0;
 					    else
-						    aggregator.lastminutechange = ((latestEntryLastMinute.price-oldestEntryLastMinute.price) /
-						                                  oldestEntryLastMinute.price)* 100;
+						    aggregator.lastminutechange = (((double)oldestEntryLastMinute.price-(double)latestEntryLastMinute.price) /
+						                                  (double)oldestEntryLastMinute.price)* 100;
 				    }
 				    
 				    Console.WriteLine($"{s} - {bond.price}: {aggregator.overallchange}% Overall | {aggregator.lasthourchange}% Last Hour | {aggregator.lastminutechange}% Last Minute");
 				    return aggregator;
-			    },
+			    }, 
 			    InMemory.As<string,BondChange>(topic2)
 				    .WithValueSerdes(new SchemaAvroSerDes<BondChange>()).WithKeySerdes(new StringSerDes()))
 		    .ToStream()
 		    .MapValues((k, v) => v.overallchange)
 		    .To<StringSerDes, DoubleSerDes>(topic3);
-
+		
 
 	    Topology t = stream.Build();
 	    KafkaStream kstream = new KafkaStream(t, config);
 	    Console.CancelKeyPress += (o, e) => kstream.Dispose();
-	    await kstream.StartAsync();
+	    await kstream.StartAsync(source.Token);
     }
 }
