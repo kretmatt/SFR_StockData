@@ -29,8 +29,13 @@ safety at the cost of latency you get.
 
 There can be an arbitrary amount of partitions for a topic. The maximum (reasonable) replica factor is dictated by the amount of brokers. If you only have 3 brokers and would like to have a replica factor of 4, it would not add to availability if one broker has 2 replicas of the same partition. The minimum value for insync replicas is capped by the replica factor. If the minimum value exceeded the replication factor, producers would never be able to send messages to partitions. 
 
-## How is the schema validated based on your compatibility mode
+## Schema and Compatibility Mode
+To create our schema, we used Avro. In a first step, we had to download the avrogen tool by executing this command `dotnet tool install -g Confluent.Apache.Avro.AvroGen`. With this we can auto-generate a C# class from an .avsc file.
+
 There are three different compatibility modes which are the following:
-* Backward
-* Forward
-* Full
+* Backward: All fields can be deleted but only optional ones can be added -> Request
+* * Consumer has to be updated first
+* Forward: Any field can be added but only optional oens can be deleted -> Answer
+* * Producer has to be updated first
+* Full: Only optional fields can be added or deleted
+The default setting for the Avro Schema
