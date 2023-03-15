@@ -45,4 +45,8 @@ There are three different compatibility modes which are the following:
   * Producer has to be updated first
   * Answers
 * Full: Only optional fields can be added or deleted
-The default setting for the Avro Schema that we went with is the backwards compatibility. 
+All of them refer only to compatibility with the version before (so for v5 it would be v4). By adding the keyword transitive at the end, it states that they are compatible with all previous versions.
+The default setting for the Avro Schema that we went with is the backwards compatibility. This can be defined in our docker compose 
+```Shell
+SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL: 'backward'
+```
