@@ -6,7 +6,7 @@ This is our SFR Repository.
 
 **Prerequisites:** Docker Desktop / Docker CLI, Docker Compose
 
-In order to run the SFR_StockData application, you first need to build the image for the kafka producer by executing the command `docker build -t stockproducer .`. After a successful build, you are able to start the application by using the `docker compose up -d` command (shutdown is possible with `docker compose down`). Here are some additional commands to check out the automatically created topic and the messages that are published by the producer (for service kafka-1, the same is possible for the other kafka services by inserting the respective names+ports):
+In order to run the SFR_StockData application, you first need to build the image for the kafka producer by executing the command `docker build -t stockproducer .`. As a next step you also have to build the image of the processor which aggregates the bond stream and creates a new stream with the growth rate of the bond. Navigate to the `SFR_StockData/processor/StocksProcessor` directory and execute the command `docker build -t stockproc .`. After a successful build, you are able to start the application by using the `docker compose up -d` command (shutdown is possible with `docker compose down`). Here are some additional commands to check out the automatically created topic and the messages that are published by the producer (for service kafka-1, the same is possible for the other kafka services by inserting the respective names+ports):
 
 ```Shell
 # Command for checking the topic with 3 partitions, 3 replicas, and min.insync.replicas=2
@@ -28,3 +28,10 @@ in.sync.replica Configuration: This configuration (most of the time provided as 
 safety at the cost of latency you get. 
 
 There can be an arbitrary amount of partitions for a topic. The maximum (reasonable) replica factor is dictated by the amount of brokers. If you only have 3 brokers and would like to have a replica factor of 4, it would not add to availability if one broker has 2 replicas of the same partition. The minimum value for insync replicas is capped by the replica factor. If the minimum value exceeded the replication factor, producers would never be able to send messages to partitions. 
+
+## How is the schema validated based on your compatibility mode
+There are three different compatibility modes which are the following:
+ Markup : - Bullet list
+              - Nested bullet
+                  - Sub-nested bullet etc
+          - Bullet list item 2 
