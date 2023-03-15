@@ -83,10 +83,21 @@ services:
   producer:
     image: stockproducer:latest
     environment:
-      bootstrapservers: kafka-2:29092
+      bootstrapservers: kafka-1:19092,kafka-2:29092,kafka-3:39092
       topic: stocks
+      schemaRegistry: schemaregistry:8081
     depends_on:
-      - init-kafka
+      - schemaregistry
+  stockproc:
+    image: stockproc:latest
+    environment:
+      bootstrapservers: kafka-1:19092,kafka-2:29092,kafka-3:39092
+      rawdatatopic: stocks
+      tabletopic: stocks-table
+      newdatatopic: bond-changes
+      schemaRegistry: schemaregistry:8081
+    depends_on:
+      - schemaregistry
   schemaregistry:
     image: confluentinc/cp-schema-registry:latest
     depends_on:
@@ -96,6 +107,7 @@ services:
       - zookeeper-1
       - zookeeper-2
       - zookeeper-3
+      - init-kafka
     ports:
       - 8085:8081
     environment:

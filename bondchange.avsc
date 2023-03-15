@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "namespace": "Demo",
+  "name": "BondChange",
+  "fields": [
+    {
+      "name": "overallchange",
+      "type": "double"
+    },
+    {
+      "name": "lastminutechange",
+      "type": "double"
+    },
+    {
+      "name": "lasthourchange",
+      "type": "double"
+    },
+    {
+      "type":"array",
+      "name":"BondEntries",
+      "type":{
+      	"type":"array",
+      	      "items":{
+	  "type": "record",
+	  "namespace": "Demo",
+	  "name": "Bond",
+	  "fields": [
+	    {
+	      "name": "bondname",
+	      "type": "string"
+	    },
+	    {
+	      "name": "price",
+	      "type": "int"
+	    },
+	    {
+	      "name": "timestamp",
+	      "type":{
+	    	"type":"long",
+	    	"logicalType":"timestamp-millis"
+	       }
+	    }
+	  ]
+	}
+      }
+    }
+  ]
+}
+
