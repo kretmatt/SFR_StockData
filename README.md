@@ -54,3 +54,4 @@ The default setting for the Avro Schema is the backwards compatibility. We chang
 ```Shell
 SCHEMA_REGISTRY_AVRO_COMPATIBILITY_LEVEL: 'backward_transitive'
 ```
+The registered schema can be checked under this URL: '[http://localhost:8085/subjects](http://localhost:8085/subjects)'
