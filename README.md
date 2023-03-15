@@ -31,7 +31,6 @@ There can be an arbitrary amount of partitions for a topic. The maximum (reasona
 
 ## How is the schema validated based on your compatibility mode
 There are three different compatibility modes which are the following:
- Markup : - Bullet list
-              - Nested bullet
-                  - Sub-nested bullet etc
-          - Bullet list item 2 
+* Backward
+* Forward
+* Full
