@@ -1,21 +1,10 @@
 ﻿using Confluent.Kafka;
-using System;
-using System.Net;
-using System.Threading;
-using Avro.Util;
-using Confluent.SchemaRegistry;
-using Confluent.SchemaRegistry.Serdes;
 using Demo;
 using Streamiz.Kafka.Net;
-using Streamiz.Kafka.Net.Crosscutting;
 using Streamiz.Kafka.Net.SchemaRegistry.SerDes.Avro;
 using Streamiz.Kafka.Net.SerDes;
-using Streamiz.Kafka.Net.State;
 using Streamiz.Kafka.Net.Stream;
 using Streamiz.Kafka.Net.Table;
-
-
-//Based on: https://developer.confluent.io/get-started/dotnet/#build-producer 
 
 public class StocksProcessor
 {
@@ -91,8 +80,8 @@ public class StocksProcessor
 			    InMemory.As<string,BondChange>(topic2)
 				    .WithValueSerdes(new SchemaAvroSerDes<BondChange>()).WithKeySerdes(new StringSerDes()))
 		    .ToStream()
-		    .MapValues((k, v) => v.overallchange)
-		    .To<StringSerDes, DoubleSerDes>(topic3);
+		    .MapValues((k, v) => new BondTrend(){lasthourchange = v.lasthourchange, lastminutechange = v.lastminutechange, overallchange = v.overallchange})
+		    .To<StringSerDes, SchemaAvroSerDes<BondTrend>>(topic3);
 		
 
 	    Topology t = stream.Build();
