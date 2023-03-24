@@ -7,9 +7,9 @@ After we built a producer, set up the schema registry, transformed the informati
 **Task:** Describe in a markdown file your decision with your selected database
 
 As dicsussed in the lecture, the first decsion reagrding the selection of a database is to decide between SQl and NoSQL. The following table highlights some of the differences.
-| Jit         | SQL       | NoSQL        |
+|        | SQL       | NoSQL        |
 | ----------- | ----------- |----------- |
-|   | Structured Data    | Unstructured Data      |
+| Data Format  | Structured Data    | Unstructured Data      |
 | Scalability  | Scales vertically  => increase physical hardware |High Scalability, built in sharding |
 | Structure  | Relational Tabular Database    | Column-Oriented , Graph Databases, Document Stores, Key-Value Stores |
 | Properties  | ACID    | CAP-Theorem |
