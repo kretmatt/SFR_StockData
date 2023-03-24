@@ -30,6 +30,6 @@ The following table compares the Ahead-of-Time (AOT) with the Just-in-Time (JIT)
 |  Advantages   | <ul><li>Useful in Cloud services because of faster startup</li><li>Smaller packaging</li><li>Suitable for microservices that are running in a cloud docker container</li></ul>   | <ul><li>Sopisticated otimization with runtime information</li><li>Only compiles the code that is called</li></ul>|
 |  Disadvantages   | <ul><li>If the code has a lot of if conditions where some branches are never reached, AOT can performe worse than JIT</li></ul>  | <ul><li>Slower startup because compilation happens at runtime</li><li>Bigger packaging</li></ul>     |
 
-We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation.
+We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation. However, if we had the choice we think that we would go with the AOT compilation since we prioritise a fast startup and our code doesn't include a lot of passages which are never called where the JIT compilation would shine with a better performance.
 
 
