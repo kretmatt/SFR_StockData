@@ -22,7 +22,7 @@ In the case of our project, we decided to use Microsoft SQL as a database since 
 
 **Task:** Describe in a markdown file in which case you would choose an AOT approach and in which case JIT
 
-https://www.c-sharpcorner.com/article/ahead-of-time-aot-compilation-to-native-code-in-net-7/
+The following table compares the Ahead-of-Time (AOT) with the Just-in-Time (JIT) compilation.
 
 |            | AOT         | JIT         |
 | -----------| ----------- | ----------- |
