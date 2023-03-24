@@ -20,10 +20,20 @@ In the case of our project, we decided to use Microsoft SQL as a database since 
 
 ## Backend
 
-**Task::** Describe in a markdown file in which case you would choose an AOT approach and in which case JIT
+**Task:** Describe in a markdown file in which case you would choose an AOT approach and in which case JIT
 
+https://www.c-sharpcorner.com/article/ahead-of-time-aot-compilation-to-native-code-in-net-7/
 
-| AOT         | JIT         |
-| ----------- | ----------- |
-| Compilations happens once during the built     | Compiled in the browser.      |
+|            | AOT         | JIT         |
+| -----------| ----------- | ----------- |
+| Size  | Smaller    | Bigger      |
+|       | Compilations happens once during the built     | Compiled in the browser.      |
+| Size  | Smaller    | Sopisticated otimization with runtime information      |
+| Compiling  | Build time    | Runtime      |
+|  Advantages   | <ul><li>item1</li><li>item2</li></ul>   | <ul><li>item1</li><li>item2</li></ul>     |
 | Browser doesn't need to compile it during runtime <br /> allowing for quicker component rendering  | Only compiles the code that is called <br /> |
+| Platform-independent  | Platform-dependent |
+
+We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation.
+
+
