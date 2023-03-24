@@ -27,8 +27,8 @@ https://www.c-sharpcorner.com/article/ahead-of-time-aot-compilation-to-native-co
 |            | AOT         | JIT         |
 | -----------| ----------- | ----------- |
 | Compiling  | Build time  | Runtime     |
-|  Advantages   | <ul><li>Useful in Cloud services because of faster startup</li><li>Smaller packaging</li><li>Suitable for microservices that are running in a cloud docker container</li></ul>   | <ul><li>Slower startup because compilation happens at runtime</li><li>Bigger packaging</li></ul>     |
-|  Disadvantages   | <ul><li>sp</li></ul>   | <ul><li>Sopisticated otimization with runtime information</li><li>Only compiles the code that is called</li></ul>     |
+|  Advantages   | <ul><li>Useful in Cloud services because of faster startup</li><li>Smaller packaging</li><li>Suitable for microservices that are running in a cloud docker container</li></ul>   | <ul><li>Sopisticated otimization with runtime information</li><li>Only compiles the code that is called</li></ul>|
+|  Disadvantages   | <ul><li>If the code has a lot of if conditions where some branches are never reached, AOT can performe worse than JIT</li></ul>  | <ul><li>Slower startup because compilation happens at runtime</li><li>Bigger packaging</li></ul>     |
 
 We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation.
 
