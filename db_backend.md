@@ -26,12 +26,9 @@ https://www.c-sharpcorner.com/article/ahead-of-time-aot-compilation-to-native-co
 
 |            | AOT         | JIT         |
 | -----------| ----------- | ----------- |
-| Size  | Smaller    | Bigger      |
-|       | Compilations happens once during the built     | Compiled in the browser.      |
-| Size  | Smaller    | Sopisticated otimization with runtime information      |
-| Compiling  | Build time    | Runtime      |
-|  Advantages   | <ul><li>item1</li><li>item2</li></ul>   | <ul><li>item1</li><li>item2</li></ul>     |
-| Browser doesn't need to compile it during runtime <br /> allowing for quicker component rendering  | Only compiles the code that is called <br /> |
+| Compiling  | Build time  | Runtime     |
+|  Advantages   | <ul><li>Useful in Cloud services because of faster startup</li><li>Smaller packaging</li><li>Suitable for microservices that are running in a cloud docker container</li></ul>   | <ul><li>Sopisticated otimization with runtime information</li><li>Only compiles the code that is called</li></ul>     |
+|  Disadvantages   | <ul><li>Useful in Cloud services because of faster startup</li><li>Smaller packaging</li><li>Suitable for microservices that are running in a cloud docker container</li></ul>   | <ul><li>Sopisticated otimization with runtime information</li><li>Only compiles the code that is called</li></ul>     |
 | Platform-independent  | Platform-dependent |
 
 We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation.
