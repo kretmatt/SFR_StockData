@@ -16,4 +16,4 @@ SQL vs NoSQL
 | AOT         | Jit         |
 | ----------- | ----------- |
 | Compilations happens once during the built     | Compiled in the browser.      |
-| Browser doesn't need to compile it during runtime allowing for quicker component rendering  | Text        |
+| Browser doesn't need to compile it during runtime <br /> allowing for quicker component rendering  | Only compiles the code that is called <br /> |
