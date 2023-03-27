@@ -23,9 +23,7 @@ Our used topics are:
 
 
 ## Microservice/Backend
-This is the endpoint to request all entries in a database for a specific company:
-[http://localhost:8087/Stock/api/get] (http://localhost:8087/Stock/api/get)
-(http://localhost:8087/Stock/api/get)
+This is the endpoint to request all entries in a database for a specific company: http://localhost:8087/Stock/api/get
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
