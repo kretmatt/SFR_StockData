@@ -6,7 +6,7 @@ This is our SFR Repository.
 
 **Prerequisites:** Docker Desktop / Docker CLI, Docker Compose
 
-In order to run the SFR_StockData application, you first need to build the image for the kafka producer by executing the command `docker build -t stockproducer .`. As a next step you also have to build the image of the processor which aggregates the bond stream and creates a new stream with the growth rate of the bond. Navigate to the `SFR_StockData/processor/StocksProcessor` directory and execute the command `docker build -t stockproc .`. After a successful build, you are able to start the application by using the `docker compose up -d` command (shutdown is possible with `docker compose down`). Here are some additional commands to check out the automatically created topic and the messages that are published by the producer (for service kafka-1, the same is possible for the other kafka services by inserting the respective names+ports):
+In order to run the SFR_StockData application, you first need to build the image for the kafka producer by executing the command `docker build -t stockproducer .`. As a next step you also have to build the image of the processor which aggregates the bond stream and creates a new stream with the growth rate of the bond. Navigate to the `SFR_StockData/processor/StocksProcessor` directory and execute the command `docker build -t stockproc .`. Last but not least, build the image of the microservice by using the command `docker build -t sfrbackend .` After a successful build, you are able to start the application by using the `docker compose up -d` command (shutdown is possible with `docker compose down`). Here are some additional commands to check out the automatically created topic and the messages that are published by the producer (for service kafka-1, the same is possible for the other kafka services by inserting the respective names+ports):
 
 ```Shell
 # Command for checking the topic with 3 partitions, 3 replicas, and min.insync.replicas=2
@@ -20,6 +20,23 @@ Our used topics are:
 * **stocks:** Our producer is sending a stock object that contains a string companyname, int price and a DateTime timestamp. The key for the message is the name of the company
 * **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
 * **bond-changes:** Only the overall change rate is sent to this topic
+
+## Database
+We included a MS SQL Server image in our docker compose and use the .NET Entity Framework to automatically create the database. This includes a table that saves the bond objects of our normal producers and a table that saves the bondchanges that are published by our processor To ensure persistency of the saved data we also added a volume in the container. Therefore, after restarting the docker container, the data in the database is not lost. 
+
+## Microservice/Backend
+Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
+<br/>This is the endpoint to request all entries in the database: http://localhost:8087/Stock
+<br/>This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
+<br/>This is the endpoint to request all entries for the recorded changes (%) of the stock prices in the database: http://localhost:8087/Stock/trends
+
+Available companies to check:
+* Amazon http://localhost:8087/Stock/Amazon
+* Apple http://localhost:8087/Stock/Apple
+* CSS http://localhost:8087/Stock/CSS
+* Google http://localhost:8087/Stock/Google
+* Microsoft http://localhost:8087/Stock/Microsoft
+* Squer http://localhost:8087/Stock/Squer
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
