@@ -34,16 +34,16 @@ The following table compares the Ahead-of-Time (AOT) with the Just-in-Time (JIT)
 
 We used .NET for the development of our Kafka Service. AOT was only introduced not to long ago with .NET 7 and focusses primarily on console applications. Therefore, we are more or less forced to go with the JIT compilation. However, if we had the choice we think that we would go with the AOT compilation since we prioritise a fast startup and our code doesn't include a lot of passages which are never called where the JIT compilation would shine with a better performance.
 
-Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints. 
-This is the endpoint to request all entries in the database: http://localhost:8087/Stock 
-This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
+
+Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
+<br/>This is the endpoint to request all entries in the database: http://localhost:8087/Stock
+<br/>This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
 
 Available companies to check:
-
-    Amazon
-    Apple
-    CSS
-    Google
-    Microsoft
-    Squer
+* Amazon http://localhost:8087/Stock/Amazon
+* Apple http://localhost:8087/Stock/Apple
+* CSS http://localhost:8087/Stock/CSS
+* Google http://localhost:8087/Stock/Google
+* Microsoft http://localhost:8087/Stock/Microsoft
+* Squer http://localhost:8087/Stock/Squer
 
