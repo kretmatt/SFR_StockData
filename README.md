@@ -26,16 +26,16 @@ We included a MS SQL Server image in our docker compose and use the .NET entity 
 
 ## Microservice/Backend
 Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
-This is the endpoint to request all entries in the database: http://localhost:8087/Stock
-This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
+<br/>This is the endpoint to request all entries in the database: http://localhost:8087/Stock
+<br/>This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
 
 Available companies to check:
-* Amazon
-* Apple
-* CSS
-* Google 
-* Microsoft
-* Squer
+* Amazon http://localhost:8087/Stock/Amazon
+* Apple http://localhost:8087/Stock/Apple
+* CSS http://localhost:8087/Stock/CSS
+* Google http://localhost:8087/Stock/Google
+* Microsoft http://localhost:8087/Stock/Microsoft
+* Squer http://localhost:8087/Stock/Squer
 
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
