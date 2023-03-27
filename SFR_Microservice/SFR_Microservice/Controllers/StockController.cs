@@ -26,12 +26,28 @@ public class StockController : ControllerBase
             ContentType = "text/html"
         };
     }
-
-    [Route("api/get")]
+    
     [HttpGet]
-    public List<Bond> Get()
+    public List<BondEntity> Get()
     {
-        List<Bond> bonds = _stocksContext.Bonds.ToList();
+        List<BondEntity> bonds = _stocksContext.Bonds.ToList();
         return bonds;
+    }
+    
+    
+    [Route("{companyname}")]
+    [HttpGet]
+    public List<BondEntity> GetBondsForCompany(string companyname)
+    {
+        List<BondEntity> bonds = _stocksContext.Bonds.Where(b => b.BondName.ToLower().Contains(companyname.ToLower())).ToList();
+        return bonds;
+    }
+    
+    [Route("trends")]
+    [HttpGet]
+    public List<BondTrendEntity> GetBondTrends()
+    {
+        List<BondTrendEntity> bondTrends = _stocksContext.BondTrends.ToList();
+        return bondTrends;
     }
 }

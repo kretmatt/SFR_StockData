@@ -132,11 +132,11 @@ services:
     image: sfrbackend:latest
     restart: always
     depends_on:
-      - db
-      - init-kafka
       - kafka-1
       - kafka-2
       - kafka-3
+      - db
+      - init-kafka
     ports:
       - "8087:80"
     environment:
@@ -144,6 +144,7 @@ services:
       topic: stocks
       bootstrapServers: kafka-1:19092,kafka-2:29092,kafka-3:39092
       schemaRegistryUrl: schemaregistry:8081
+      bondTrendTopic: bond-trends
   init-kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
