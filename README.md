@@ -21,8 +21,11 @@ Our used topics are:
 * **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
 * **bond-changes:** Only the overall change rate is sent to this topic
 
+## Database
+We included a MS SQL Server image in our docker compose and use the .NET entity framework to automatically create a database. This includes a table that saves the bond objects of our normal producers and a table that saves the bondchanges that are published by our processor To ensure persistency of the saved data we also added a volume in the container. Therefore, after restarting the docker container, the data in the database is not lost. 
 
 ## Microservice/Backend
+Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
 This is the endpoint to request all entries in the database: http://localhost:8087/Stock
 This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
 
