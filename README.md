@@ -22,7 +22,7 @@ Our used topics are:
 * **bond-changes:** Only the overall change rate is sent to this topic
 
 ## Database
-We included a MS SQL Server image in our docker compose and use the .NET entity framework to automatically create a database. This includes a table that saves the bond objects of our normal producers and a table that saves the bondchanges that are published by our processor To ensure persistency of the saved data we also added a volume in the container. Therefore, after restarting the docker container, the data in the database is not lost. 
+We included a MS SQL Server image in our docker compose and use the .NET Entity Framework to automatically create the database. This includes a table that saves the bond objects of our normal producers and a table that saves the bondchanges that are published by our processor To ensure persistency of the saved data we also added a volume in the container. Therefore, after restarting the docker container, the data in the database is not lost. 
 
 ## Microservice/Backend
 Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
