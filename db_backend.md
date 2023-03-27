@@ -9,11 +9,12 @@ After we built a producer, set up the schema registry, transformed the informati
 As dicsussed in the lecture, the first decsion reagrding the selection of a database is to decide between SQl and NoSQL. The following table highlights some of the differences.
 |        | SQL       | NoSQL        |
 | ----------- | ----------- |----------- |
+| Language  | Structured Query Language    | Depends on Database      |
 | Data Format  | Structured Data    | Unstructured Data      |
 | Scalability  | Scales vertically  => increase physical hardware |High Scalability, built in sharding |
 | Structure  | Relational Tabular Database    | Column-Oriented , Graph Databases, Document Stores, Key-Value Stores |
 | Properties  | ACID    | CAP-Theorem |
-| When to use  |     |  |
+| When to use  | <ul><li>Structured or structure doesn't change frequently</li><li>Routinely perform complex queries</li><li>Require high degree of data security and integrity</li></ul>    | <ul><li>Require flexibility regarding data model</li><li>Require scalability</li><li>Working with data that doesn't fit in the relational model</li></ul> |
 
 In the case of our project, we decided to use Microsoft SQL as a database since we don't have to think about scalability and a table works well for the data that we want to store. Furthermore, SQL is suitable for simple aggregations. In our case calculating the average stock price for a specific company.
 
