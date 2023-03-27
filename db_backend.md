@@ -38,6 +38,7 @@ We used .NET for the development of our Kafka Service. AOT was only introduced n
 Through our backend, we can send querys to the database and provide the frontend with the needed data with the help of endpoints.
 <br/>This is the endpoint to request all entries in the database: http://localhost:8087/Stock
 <br/>This is the endpoint to request all entries for a specific company in the database: http://localhost:8087/Stock/{company}
+<br/>This is the endpoint to request all entries for the recorded changes (%) of the stock prices in the database: http://localhost:8087/Stock/trends
 
 Available companies to check:
 * Amazon http://localhost:8087/Stock/Amazon
