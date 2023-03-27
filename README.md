@@ -21,6 +21,11 @@ Our used topics are:
 * **stocks-table:** This topic includes the overall change rate of the stock price as well as the change rate of the last hour and last minute. It is saved as a table and then turned back into a stream to send it to the next topic. This shows the **Table Stream Duality**.
 * **bond-changes:** Only the overall change rate is sent to this topic
 
+
+## Microservice/Backend
+This is the endpoint to request all entries in a database for a specific company:
+[http://localhost:8087/Stock/api/get] (http://localhost:8087/Stock/api/get)
+
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
 Brokers: Kafka can be "distributed" across multiple nodes, also called brokers, to allow for easier scaling and to increase reliability of Kafka itself. Multiple brokers working together are often called a Kafka cluster.
