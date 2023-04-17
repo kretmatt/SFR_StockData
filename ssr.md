@@ -1,7 +1,6 @@
 # Server-Side-Rendering (SSR) with Next.js
 
-xyz
-
+We used Next.js as a framework to create our SSR -based frontend.
 
 **Task:** Explain shortly why our use-case is not a good fit for build-time rendering
 
