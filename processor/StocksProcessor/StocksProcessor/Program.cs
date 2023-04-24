@@ -80,7 +80,7 @@ public class StocksProcessor
 			    InMemory.As<string,BondChange>(topic2)
 				    .WithValueSerdes(new SchemaAvroSerDes<BondChange>()).WithKeySerdes(new StringSerDes()))
 		    .ToStream()
-		    .MapValues((k, v) => new BondTrend(){lasthourchange = v.lasthourchange, lastminutechange = v.lastminutechange, overallchange = v.overallchange})
+		    .MapValues((k, v) =>new BondTrend(){lasthourchange = v.lasthourchange, lastminutechange = v.lastminutechange, overallchange = v.overallchange})
 		    .To<StringSerDes, SchemaAvroSerDes<BondTrend>>(topic3);
 		
 

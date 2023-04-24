@@ -60,7 +60,7 @@ public class Producer
                 while ((text = Console.ReadLine()) != "q")
                 {
                     var name = bonds[rnd.Next(bonds.Length)];
-                    price = price + rnd.Next(0, 2);
+                    price = rnd.Next(80, 160);
                     var time = DateTime.Now;
                     Demo.Bond bondy = new Demo.Bond()
                     {

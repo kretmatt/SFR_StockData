@@ -1,21 +1,23 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import getConfig from 'next/config'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export async function getServerSideProps() {
-    const res = await fetch('http://localhost:8087/Stock/trends');
+    const res = await fetch(process.env.requesturl+'trends');
     const data = await res.json();
 
     return {
         props: {
-            data, // will be passed to the page component as props
+            data,
         },
     };
 }
 
-export default function Home({ data }) {
-  const urlBuilder = (stock) =>{
+export default function Home({ data }:{data:any}) {
+  const urlBuilder = (stock:any) =>{
   	return "/stock/"+stock.bondName;
   }
 
@@ -27,11 +29,10 @@ export default function Home({ data }) {
        {data?.Length === 0 ? (
         <h1>Still loading</h1>
        ):(
-         data?.map((data) => (
-         <Link href={urlBuilder(data)}>
+         data?.map((data:any) => (
+         <Link key={data.bondName} href={urlBuilder(data)}>
 			<div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
           rel="noopener noreferrer"
         >
           <h2 className="mb-3 text-2xl font-semibold">

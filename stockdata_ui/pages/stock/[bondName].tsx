@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
-const inter = Inter({ subsets: ['latin'] })
 import { useState } from 'react'
 
+const inter = Inter({ subsets: ['latin'] })
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context:any) {
     const name = context.params.bondName;
-    const res = await fetch('http://localhost:8087/Stock/'+name);
+    const res = await fetch(process.env.requesturl+name);
     const data = await res.json();
 
     return {
@@ -17,18 +17,18 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function Home({ data}) {
+export default function Home({ data}:{data:any}) {
 const [query, setQuery] = useState('');
 
-  const searchFilter = (array) => {
+  const searchFilter = (array:any) => {
 	  return array.filter(
-	    (el) => el.price>(query)
+	    (el:any) => el.price>(query)
 	  )
   }
 
   const filtered = searchFilter(data)
 
-const handleChange = (e) => {
+const handleChange = (e:any) => {
 setQuery(e.target.value);
 }
 
@@ -44,11 +44,11 @@ setQuery(e.target.value);
        {data?.Length === 0 ? (
         <h1>test</h1>
        ):(
-         filtered.map((data) => (
+         filtered.map((data:any) => (
 			<div
           className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
           rel="noopener noreferrer"
+          key = {data.timeStamp}
         >
           <p
             className="m-0 max-w-[30ch] text-sm opacity-50"
