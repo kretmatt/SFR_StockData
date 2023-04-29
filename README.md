@@ -38,6 +38,22 @@ Available companies to check:
 * Microsoft http://localhost:8087/Stock/Microsoft
 * Squer http://localhost:8087/Stock/Squer
 
+## Frontend
+A requirement for the frontend was that it is based on progressive enhancement and server-side rendering. For the implementation, we used the Next.js Framework.
+Once the docker container is built, the index page of our frontend can be accessed with the following URL: http://localhost:3000. There you can see all companies and information regarding the price changes in %. The data is fetched with the method getServerSideProps from our microservice endpoints mentioned above.
+Clicking on one of the companies directs to a detailed page that shows all recored stock prices for this company. This is done through dynamic routing.
+
+Available companies to check in our frontend:
+* Amazon http://localhost:3000/stock/Amazon
+* Apple http://localhost:3000/stock/Apple
+* CSS http://localhost:3000/stock/CSS
+* Google http://localhost:3000/stock/Google
+* Microsoft http://localhost:3000/stock/Microsoft
+* Squer http://localhost:3000/stock/Squer
+
+
+Furthermore, since we are working with real time data, buildtime rendering or static site generation are unsuitable for our needs.
+
 ## Analyze how brokers, partitions, replicas & in.sync.replica configuration are related
 
 Brokers: Kafka can be "distributed" across multiple nodes, also called brokers, to allow for easier scaling and to increase reliability of Kafka itself. Multiple brokers working together are often called a Kafka cluster.
